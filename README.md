@@ -1,9 +1,3 @@
-# flask-sheets-template-2024
-
-A web application starter template, created in Python with the Flask framework. Allows users to login with their Google accounts (via OAuth). Interfaces with a Google Sheets database.
-
-![](./docs/images/products-page-screenshot.png)
-
 ## Setup
 
 ### Prerequisites
@@ -85,14 +79,10 @@ GOOGLE_CLIENT_SECRET="____________"
 # GOOGLE SHEETS DATABASE (see Google Sheets Database Setup Guide)
 #
 GOOGLE_SHEETS_DOCUMENT_ID="____________"
-#GOOGLE_SHEETS_TEST_DOCUMENT_ID="____________"
-
-#
-# GOOGLE ANALYTICS (see Google Analytics Setup Guide)
-#
-#GA_TRACKER_ID="____________"
+GOOGLE_SHEETS_TEST_DOCUMENT_ID="____________"
+ 
 ```
-
+For this app, I didn't include Google Analytics.
 
 
 
@@ -106,10 +96,10 @@ After you have set up the Google Sheets database, you should be able to use the 
 python -m app.spreadsheet_service
 ```
 
-Assuming the "products" sheet has been setup properly, you can use the model class to interface with it at a higher level (for example to populate the sheet with example records):
+Assuming the "book" sheet has been setup properly, you can use the model class to interface with it at a higher level (for example to populate the sheet with example records):
 
 ```sh
-python -m app.models.product
+python -m app.models.book
 ```
 
 This should populate the sheet with the following records:
@@ -120,7 +110,7 @@ This should populate the sheet with the following records:
 | 2   | Cup of Tea   | An individually-prepared tea or coffee of choice. | 3.49   | https://picsum.photos/id/225/360/200  | ...        |
 | 3   | Textbook     | It has all the answers.                           | 129.99 | https://picsum.photos/id/24/360/200   | ...        |
 
-> NOTE: see the contents of the ["app/models/product.py"](/app/models/product.py) file for more details, and feel free to customize the `SEEDS` as desired.
+> NOTE: see the contents of the ["app/models/book.py"](/app/models/book.py) file for more details, and feel free to customize the `SEEDS` as desired.
 
 ### Web Application
 
@@ -132,28 +122,7 @@ FLASK_APP=web_app flask run
 
 > NOTE: if you run into issues seeting the site at the localhost:5000 address, try 127.0.0.1:5000 instead!
 
-
-
-## Testing
-
-We will use a separate Google Sheet "test document" during testing. This keeps development data seprate from test data, and allows for experimentation when testing.
-
-To setup the test document, follow a modified version of the Google Sheets Database Setup Guide:
-  1. Create a copy of the Google Sheet "development document" you setup earlier (including the "products" and "orders" sheet with the proper column identifiers).
-  2. Share this document with your service account's email address, giving it "Editor" priviges.
-  3. Note the document's identifier from the URL bar, and set it as a separate environment variable called `GOOGLE_SHEETS_TEST_DOCUMENT_ID`, by adding this environment variable to the ".env" file.
-
-Running tests, as configured by the "conftest.py" file and defined in the "test" directory:
-
-```sh
-pytest
-```
-
-> NOTE: the "test/web_app_test.py" file references specific content on certain pages, so as you update the page contents you may need to update the tests as well.
-
-## Continuous Integration
-
-See the [GitHub Actions Setup Guide](/docs/GITHUB_ACTIONS.md) for more information about configuring the Continuous Integration (CI) build process.
+To set up books tab, had to make a few changes. I created a new htmml doc, and a route for books. I also added this model to the app and the init py file so that the page could load.
 
 ## Deploying / Hosting
 
