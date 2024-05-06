@@ -20,7 +20,6 @@ def orders():
     orders = sorted(orders, key=lambda order: order.created_at, reverse=True)
     return render_template("user_orders.html", orders=orders)
 
-
 @order_routes.route("/user/orders/create", methods=["POST"])
 @authenticated_route
 def create_order():
@@ -28,9 +27,10 @@ def create_order():
 
     form_data = dict(request.form)
     print("FORM DATA:", form_data)
-    product_id = form_data["product_id"]
-    product_name = form_data["product_name"]
-    product_price = form_data["product_price"]
+    book_id = form_data["book_id"]
+    book_title = form_data["book_title"]
+    book_author = form_data["book_author"]
+    book_year = form_data["book_year"]
 
     current_user = session.get("current_user")
     user_email = current_user["email"]
@@ -38,9 +38,10 @@ def create_order():
     try:
         params = {
             "user_email": user_email,
-            "product_id": int(product_id),
-            "product_name": product_name,
-            "product_price": float(product_price)
+            "book_id": int(book_id),
+            "book_title": book_title,
+            "book_author": book_author,
+            "book_year": float(book_year)
         }
         #order = Order(params)
         #order.save()
@@ -52,4 +53,37 @@ def create_order():
     except Exception as err:
         print(err)
         flash(f"Oops, something went wrong: {err}", "warning")
-        return redirect("/products")
+        return redirect("/books")
+
+#@order_routes.route("/user/orders/create", methods=["POST"])
+#@authenticated_route
+#def create_order():
+#    print("CREATE USER ORDER...")
+
+#    form_data = dict(request.form)
+#    print("FORM DATA:", form_data)
+#    product_id = form_data["product_id"]
+#    product_name = form_data["product_name"]
+#    product_price = form_data["product_price"]
+
+    # current_user = session.get("current_user")
+    # user_email = current_user["email"]
+
+    # try:
+    #     params = {
+    #         "user_email": user_email,
+    #         "product_id": int(product_id),
+    #         "product_name": product_name,
+    #         "product_price": float(product_price)
+    #     }
+    #     #order = Order(params)
+    #     #order.save()
+    #     # alternatively:
+    #     Order.create(params)
+
+    #     flash(f"Order received!", "success")
+    #     return redirect("/user/orders")
+    # except Exception as err:
+    #     print(err)
+    #     flash(f"Oops, something went wrong: {err}", "warning")
+    #     return redirect("/products")

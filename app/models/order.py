@@ -6,10 +6,9 @@ class Order(BaseModel):
 
     SHEET_NAME = "orders"
 
-    COLUMNS = ["user_email", "product_id", "product_name", "product_price"]
+    COLUMNS = ["user_email", "book_id", "book_title", "book_author", "book_year"]
 
     SEEDS = []
-
 
 if __name__ == "__main__":
 

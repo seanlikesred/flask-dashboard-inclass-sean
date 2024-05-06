@@ -11,4 +11,4 @@ def profile():
     print("USER PROFILE...")
     current_user = session.get("current_user")
     #user = fetch_user(email=current_user["email"])
-    return render_template("user_profile.html", user=current_user) # user=user
+    return render_template("user_profile.html", user=current_user) #user=user
